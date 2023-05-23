@@ -14,6 +14,8 @@ namespace TakeGrant.Model
             this.id = id;
         }
 
+        public string Name { get; private set; }
+
         public void EditRights(int id, Rights right)
         {
             rights[id] = right;

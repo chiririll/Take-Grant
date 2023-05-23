@@ -55,6 +55,7 @@
     <Compile Include="Model\AccessModel.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Rights.cs" />
+    <Compile Include="View\EditItemPanel.cs" />
     <Compile Include="View\GraphDrawer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
