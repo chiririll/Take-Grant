@@ -5,7 +5,7 @@ namespace TakeGrant
 {
     public partial class MainForm : Form
     {
-        private readonly GraphDrawer drawer;
+        private GraphDrawer drawer;
 
         private AccessModel model;
 
@@ -16,9 +16,14 @@ namespace TakeGrant
             model = new AccessModel();
         }
 
-        public void DrawGraph()
+        private void DrawGraph(object sender, System.EventArgs e)
         {
+            drawer.Init(model.Items);
+        }
 
+        private void Initialize(object sender, System.EventArgs e)
+        {
+            this.drawer = new GraphDrawer(graphPictureBox, graphLabel);
         }
     }
 }
