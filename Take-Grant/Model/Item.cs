@@ -14,7 +14,7 @@ namespace TakeGrant.Model
             this.id = id;
         }
 
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         public void EditRights(int id, Rights right)
         {
@@ -25,5 +25,8 @@ namespace TakeGrant.Model
         {
             rights.Remove(id);
         }
+
+        public override string ToString() => (rights.Count == 0 ? "O" : "S") + id.ToString() + 
+            (string.IsNullOrEmpty(Name) ? "" : $": {Name}");
     }
 }

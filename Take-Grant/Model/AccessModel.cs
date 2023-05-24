@@ -6,17 +6,27 @@ namespace TakeGrant.Model
     {
         private readonly List<Item> items;
 
+        private int freeId = 0;
+
         public IReadOnlyList<Item> Items => items;
 
         public AccessModel()
         {
             items = new List<Item>();
 
-            items.Add(new Item(0));
-            items.Add(new Item(1));
-            items.Add(new Item(2));
-            items.Add(new Item(3));
-            items.Add(new Item(4));
+            items.Add(new Item(freeId++));
+            items.Add(new Item(freeId++));
+            items.Add(new Item(freeId++));
+            items.Add(new Item(freeId++));
+            items.Add(new Item(freeId++));
+        }
+
+        internal void CreateItem(string name = null)
+        {
+            var item = new Item(freeId++);
+            item.Name = name;
+
+            items.Add(item);
         }
     }
 }

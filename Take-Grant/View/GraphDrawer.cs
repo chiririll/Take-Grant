@@ -52,7 +52,7 @@ namespace TakeGrant
 
         private void ClickCallback(object sender, MouseEventArgs e)
         {
-            if (itemsToCreate.Count <= 0)
+            if (itemsToCreate == null || itemsToCreate.Count <= 0)
                 return;
 
             Item item = null;
@@ -83,7 +83,7 @@ namespace TakeGrant
             }
 
             var item = itemsToCreate.Peek();
-            messageLabel.Text = string.Format(requestPointMessage, item.id);
+            messageLabel.Text = string.Format(requestPointMessage, item);
         }
     }
 }

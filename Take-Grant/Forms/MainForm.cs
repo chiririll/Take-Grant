@@ -1,13 +1,16 @@
 ﻿using System.Windows.Forms;
 using TakeGrant.Model;
+using TakeGrant.View;
 
 namespace TakeGrant
 {
     public partial class MainForm : Form
     {
-        private GraphDrawer drawer;
-
         private AccessModel model;
+
+        private GraphDrawer drawer;
+        private EditItemPanel editItemView;
+
 
         public MainForm()
         {
@@ -24,6 +27,13 @@ namespace TakeGrant
         private void Initialize(object sender, System.EventArgs e)
         {
             this.drawer = new GraphDrawer(graphPictureBox, graphLabel);
+            this.editItemView = new EditItemPanel(
+                subjEditChooseDropdown,
+                subjEditName,
+                subjEditSaveBtn,
+                subjEditRemoveBtn);
+
+            editItemView.Init(model);
         }
     }
 }
