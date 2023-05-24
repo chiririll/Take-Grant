@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using TakeGrant.Model;
 using TakeGrant.View;
@@ -15,7 +16,7 @@ namespace TakeGrant
         private readonly Label messageLabel;
 
         private Queue<Item> itemsToCreate;
-
+        
         public GraphDrawer(PictureBox canvas, Label messageLabel) 
         { 
             items = new Dictionary<int, ItemView>();
@@ -46,6 +47,18 @@ namespace TakeGrant
         {
             foreach (var item in items.Values)
             {
+                foreach (var right in item.Rights)
+                {
+                    if (items.TryGetValue(right.Key, out var srcItem))
+                        DrawArrow(e.Graphics, 
+                            item.GetEdgePosition(srcItem.Pos), 
+                            srcItem.GetEdgePosition(item.Pos), 
+                            Rights.ToString(right.Value));
+                }
+            }
+
+            foreach (var item in items.Values)
+            {
                 item.Draw(e.Graphics);
             }
         }
@@ -65,7 +78,7 @@ namespace TakeGrant
 
             if (item != null)
             {
-                var viewItem = new ItemView(e.X, e.Y);
+                var viewItem = new ItemView(e.X, e.Y, item.Rights, item.ShortName);
                 items[item.id] = viewItem;
             }
 
@@ -84,6 +97,18 @@ namespace TakeGrant
 
             var item = itemsToCreate.Peek();
             messageLabel.Text = string.Format(requestPointMessage, item);
+        }
+
+        private void DrawArrow(Graphics g, Point src, Point dst, string rights)
+        {
+            g.DrawLine(Pens.Black, src, dst);
+            g.FillEllipse(Brushes.Yellow, dst.X, dst.Y, 10, 10);
+
+            var midX = (src.X + dst.X) / 2;
+            var midY = (src.Y + dst.Y) / 2;
+
+            var font = new Font(FontFamily.GenericSansSerif, 8);
+            g.DrawString(rights, font, Brushes.Blue, midX, midY);
         }
     }
 }

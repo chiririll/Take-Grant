@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TakeGrant.Model
 {
@@ -9,6 +10,8 @@ namespace TakeGrant.Model
         private int freeId = 0;
 
         public IReadOnlyList<Item> Items => items;
+
+        public event Action OnMatrixChanged;
 
         public AccessModel()
         {
@@ -27,6 +30,12 @@ namespace TakeGrant.Model
             item.Name = name;
 
             items.Add(item);
+            OnMatrixChanged?.Invoke();
+        }
+
+        public void Invalidate()
+        {
+            OnMatrixChanged?.Invoke();
         }
     }
 }

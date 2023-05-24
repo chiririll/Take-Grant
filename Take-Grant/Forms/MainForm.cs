@@ -11,6 +11,7 @@ namespace TakeGrant
         private GraphDrawer drawer;
         private EditItemPanel editItemView;
 
+        private AccessMatrixView matrix;
 
         public MainForm()
         {
@@ -27,6 +28,8 @@ namespace TakeGrant
         private void Initialize(object sender, System.EventArgs e)
         {
             this.drawer = new GraphDrawer(graphPictureBox, graphLabel);
+            this.matrix = new AccessMatrixView(accessMatrix);
+
             this.editItemView = new EditItemPanel(
                 subjEditChooseDropdown,
                 subjEditName,
@@ -34,6 +37,7 @@ namespace TakeGrant
                 subjEditRemoveBtn);
 
             editItemView.Init(model);
+            matrix.Init(model);
         }
     }
 }
