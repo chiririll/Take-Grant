@@ -14,7 +14,7 @@ namespace TakeGrant
         private readonly PictureBox canvas;
         private readonly Label messageLabel;
 
-        private GraphInitializer<Item> initializer;
+        private Queue<Item> itemsToCreate;
 
         public GraphDrawer(PictureBox canvas, Label messageLabel) 
         { 
@@ -22,8 +22,6 @@ namespace TakeGrant
 
             this.canvas = canvas;
             this.messageLabel = messageLabel;
-
-            this.initializer = null;
 
             canvas.MouseUp += ClickCallback;
             canvas.Paint += Draw;
@@ -35,11 +33,12 @@ namespace TakeGrant
             canvas.Paint -= Draw;
         }
 
-        public void Init(IReadOnlyList<Item> modelItems)
+        public void Init(IEnumerable<Item> modelItems)
         {
             this.items.Clear();
             
-            initializer = new GraphInitializer<Item>(modelItems);
+            this.itemsToCreate = new Queue<Item>(modelItems);
+            
             RequestItemPosition();
         }
 
@@ -53,16 +52,22 @@ namespace TakeGrant
 
         private void ClickCallback(object sender, MouseEventArgs e)
         {
-            if (initializer == null)
+            if (itemsToCreate.Count <= 0)
                 return;
 
-            var item = initializer.GetItem();
-            var viewItem = new ItemView(e.X, e.Y);
+            Item item = null;
+            while (itemsToCreate.Count > 0)
+            {
+                item = itemsToCreate.Dequeue();
+                if (!items.ContainsKey(item.id)) break;
+                item = null;
+            }
 
-            items[item.id] = viewItem;
-
-            if (initializer.IsOver())
-                initializer = null;
+            if (item != null)
+            {
+                var viewItem = new ItemView(e.X, e.Y);
+                items[item.id] = viewItem;
+            }
 
             RequestItemPosition();
         }
@@ -71,13 +76,13 @@ namespace TakeGrant
         {
             canvas.Invalidate();
             
-            if (initializer == null)
+            if (itemsToCreate.Count <= 0)
             {
                 messageLabel.Text = "";
                 return;
             }
 
-            var item = initializer.PeekItem();
+            var item = itemsToCreate.Peek();
             messageLabel.Text = string.Format(requestPointMessage, item.id);
         }
     }
