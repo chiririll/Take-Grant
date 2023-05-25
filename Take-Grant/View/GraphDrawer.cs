@@ -52,7 +52,6 @@ namespace TakeGrant
         public void Init(IEnumerable<Item> modelItems)
         {
             this.items.Clear();
-            
             this.itemsToCreate = new Queue<Item>(modelItems);
             
             RequestItemPosition();

@@ -57,7 +57,6 @@
     <Compile Include="Model\Rights.cs" />
     <Compile Include="Utils\M.cs" />
     <Compile Include="View\AccessMatrixView.cs" />
-    <Compile Include="View\EditItemPanel.cs" />
     <Compile Include="View\GraphDrawer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

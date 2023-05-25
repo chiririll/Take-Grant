@@ -9,8 +9,6 @@ namespace TakeGrant
         private AccessModel model;
 
         private GraphDrawer drawer;
-        private EditItemPanel editItemView;
-
         private AccessMatrixView matrix;
 
         public MainForm()
@@ -30,14 +28,33 @@ namespace TakeGrant
             this.drawer = new GraphDrawer(graphPictureBox, graphLabel);
             this.matrix = new AccessMatrixView(accessMatrix);
 
-            this.editItemView = new EditItemPanel(
-                subjEditChooseDropdown,
-                subjEditName,
-                subjEditSaveBtn,
-                subjEditRemoveBtn);
-
-            editItemView.Init(model);
             matrix.Init(model);
+        }
+
+        private void CreateMatrix(object sender, System.EventArgs e)
+        {
+            model.CreateMatrix((int)itemsCount.Value);
+            drawer.Init(model.Items);
+            matrix.UpdateGrid();
+
+            graphPictureBox.Invalidate();
+            accessMatrix.Invalidate();
+        }
+
+        private void ClearRights(object sender, System.EventArgs e)
+        {
+            model.ClearRights();
+            
+            graphPictureBox.Invalidate();
+            matrix.UpdateGrid();
+        }
+
+        private void GenerateRights(object sender, System.EventArgs e)
+        {
+            model.RandomizeRights();
+
+            graphPictureBox.Invalidate();
+            matrix.UpdateGrid();
         }
     }
 }

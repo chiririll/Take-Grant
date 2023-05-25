@@ -7,8 +7,6 @@ namespace TakeGrant.Model
     {
         private readonly List<Item> items;
 
-        private int freeId = 0;
-
         public IReadOnlyList<Item> Items => items;
 
         public event Action OnMatrixChanged;
@@ -16,26 +14,43 @@ namespace TakeGrant.Model
         public AccessModel()
         {
             items = new List<Item>();
-
-            items.Add(new Item(freeId++));
-            items.Add(new Item(freeId++));
-            items.Add(new Item(freeId++));
-            items.Add(new Item(freeId++));
-            items.Add(new Item(freeId++));
         }
 
-        internal void CreateItem(string name = null)
+        public void CreateMatrix(int count)
         {
-            var item = new Item(freeId++);
-            item.Name = name;
-
-            items.Add(item);
-            OnMatrixChanged?.Invoke();
+            items.Clear();
+            for (int i = 0; i < count; i++) 
+            { 
+                items.Add(new Item(i));
+            }
         }
 
         public void Invalidate()
         {
             OnMatrixChanged?.Invoke();
+        }
+
+        public void ClearRights()
+        {
+            foreach (var item in items)
+            {
+                item.ClearRights();
+            }
+        }
+
+        public void RandomizeRights()
+        {
+            var rand = new Random();
+
+            ClearRights();
+
+            foreach (var item in items)
+            {
+                var objId = rand.Next(items.Count - 1);
+                if (objId == item.id) objId++;
+
+                item.EditRights(objId, Rights.Randomize(rand));
+            }
         }
     }
 }

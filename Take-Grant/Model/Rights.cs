@@ -44,6 +44,8 @@ namespace TakeGrant.Model
             return str.ToString();
         }
 
+        public static Type Randomize(System.Random rand) => rand.Next(2) == 1 ? (Type)rand.Next((int)Type.Grant + 1) : Type.None;
+
         public enum Type : byte
         {
             None = 0,

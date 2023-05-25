@@ -24,10 +24,7 @@ namespace TakeGrant.Model
             rights[id] = right;
         }
 
-        public void Remove(int id)
-        {
-            rights.Remove(id);
-        }
+        public void ClearRights() => rights.Clear();
 
         public override string ToString() => string.IsNullOrEmpty(Name) ? ShortName : $"{ShortName}: {Name}";
     }
