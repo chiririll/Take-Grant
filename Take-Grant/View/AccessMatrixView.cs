@@ -40,7 +40,7 @@ namespace TakeGrant.View
             grid.Rows.Clear();
 
             var i = 0;
-            foreach (var item in model.Items)
+            foreach (var item in model.Subjects)
             {
                 grid.Columns.Add(item.ShortName, item.ShortName);
                 grid.Rows.Add();
@@ -54,10 +54,16 @@ namespace TakeGrant.View
                 i++;
             }
             
+            foreach (var item in model.Objects)
+            {
+                grid.Columns.Add(item.ShortName, item.ShortName);
+                grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
             i = 0;
             foreach (var item in model.Items)
             {
-                foreach (var right in item.Rights)
+                foreach (var right in item.AccessRights)
                 {
                     grid.Rows[i].Cells[right.Key].Value = Rights.ToString(right.Value);
                 }
@@ -71,7 +77,7 @@ namespace TakeGrant.View
             if (cell.Value == null)
                 return;
 
-            var rights = Rights.FromString(cell.Value.ToString());
+            var rights = Rights.FromString(cell.Value.ToString(), e.ColumnIndex >= model.Subjects.Count);
 
             var srcItem = model.Items[e.RowIndex];
             var dstItem = model.Items[e.ColumnIndex];

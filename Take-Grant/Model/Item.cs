@@ -7,25 +7,28 @@ namespace TakeGrant.Model
         private readonly Dictionary<int, Rights.Type> rights;
         public readonly int id;
 
-        public Item(int id)
+        public Item(int id, bool isObject)
         {
             rights = new Dictionary<int, Rights.Type>();
 
             this.id = id;
+            IsObject = isObject;
         }
 
-        public IReadOnlyDictionary<int,  Rights.Type> Rights => rights;
+        public IReadOnlyDictionary<int,  Rights.Type> AccessRights => rights;
 
-        public string ShortName => (rights.Count == 0 ? "O" : "S") + id.ToString();
-        public string Name { get; set; }
+        public string ShortName => (IsObject ? "O" : "S") + id.ToString();
+        public bool IsObject { get; }
 
         public void EditRights(int id, Rights.Type right)
         {
+            if (right == Rights.Type.None) return;
+
             rights[id] = right;
         }
 
         public void ClearRights() => rights.Clear();
 
-        public override string ToString() => string.IsNullOrEmpty(Name) ? ShortName : $"{ShortName}: {Name}";
+        public override string ToString() => ShortName;
     }
 }

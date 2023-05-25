@@ -5,24 +5,43 @@ namespace TakeGrant.Model
 {
     public class AccessModel
     {
+        private readonly List<Item> subjects;
+        private readonly List<Item> objects;
+
         private readonly List<Item> items;
 
+        public IReadOnlyList<Item> Subjects => subjects;
+        public IReadOnlyList<Item> Objects => objects;
         public IReadOnlyList<Item> Items => items;
 
         public event Action OnMatrixChanged;
 
         public AccessModel()
         {
+            subjects = new List<Item>();
+            objects = new List<Item>();
             items = new List<Item>();
         }
 
-        public void CreateMatrix(int count)
+        public void CreateMatrix(int subjCount, int objCount)
         {
-            items.Clear();
-            for (int i = 0; i < count; i++) 
-            { 
-                items.Add(new Item(i));
+            subjects.Clear();
+            objects.Clear();
+
+            int i = 0;
+            for (; i < subjCount; i++) 
+            {
+                subjects.Add(new Item(i, false));
             }
+            
+            for (; i < subjCount + objCount; i++)
+            {
+                objects.Add(new Item(i, true));
+            }
+
+            items.Clear();
+            items.AddRange(subjects);
+            items.AddRange(objects);
         }
 
         public void Invalidate()
@@ -32,7 +51,12 @@ namespace TakeGrant.Model
 
         public void ClearRights()
         {
-            foreach (var item in items)
+            foreach (var item in subjects)
+            {
+                item.ClearRights();
+            }
+
+            foreach (var item in objects)
             {
                 item.ClearRights();
             }
@@ -44,12 +68,20 @@ namespace TakeGrant.Model
 
             ClearRights();
 
-            foreach (var item in items)
+            foreach (var item in subjects)
             {
-                var objId = rand.Next(items.Count - 1);
-                if (objId == item.id) objId++;
+                foreach(var subj in subjects)
+                {
+                    if (subj.id == item.id) continue;
 
-                item.EditRights(objId, Rights.Randomize(rand));
+
+                    item.EditRights(subj.id, Rights.Randomize(rand, true, subjects.Count));
+                }
+                
+                foreach (var obj in objects)
+                {
+                    item.EditRights(obj.id, Rights.Randomize(rand, false, objects.Count));
+                }
             }
         }
     }

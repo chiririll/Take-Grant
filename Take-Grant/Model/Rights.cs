@@ -4,29 +4,38 @@ namespace TakeGrant.Model
 {
     public static class Rights
     {
-        public static Type FromString(string str)
+        public static Type FromString(string str, bool toObj)
         {
             var rights = Type.None;
             foreach (var c in str)
             {
-                switch (c)
+                if (toObj)
                 {
-                    case 'r':
-                    case 'R':
-                        rights |= Type.Read;
-                        break;
-                    case 'w':
-                    case 'W':
-                        rights |= Type.Write;
-                        break;
-                    case 't':
-                    case 'T':
-                        rights |= Type.Take;
-                        break;
-                    case 'g':
-                    case 'G':
-                        rights |= Type.Grant;
-                        break;
+                    switch (c)
+                    {
+                        case 'r':
+                        case 'R':
+                            rights |= Type.Read;
+                            break;
+                        case 'w':
+                        case 'W':
+                            rights |= Type.Write;
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (c)
+                    {
+                        case 't':
+                        case 'T':
+                            rights |= Type.Take;
+                            break;
+                        case 'g':
+                        case 'G':
+                            rights |= Type.Grant;
+                            break;
+                    }
                 }
             }
             return rights;
@@ -44,7 +53,17 @@ namespace TakeGrant.Model
             return str.ToString();
         }
 
-        public static Type Randomize(System.Random rand) => rand.Next(2) == 1 ? (Type)rand.Next((int)Type.Grant + 1) : Type.None;
+        public static Type Randomize(System.Random rand, bool toSubject, int chance)
+        {
+            if (rand.Next(chance) != 0)
+                return Type.None;
+
+            var r = rand.Next((int)Type.Grant << 1);
+            var rw = (int)Type.Read | (int)Type.Write;
+            var tg = (int)Type.Take | (int)Type.Grant;
+
+            return (Type)(r & ~(toSubject ? rw : tg));
+        }
 
         public enum Type : byte
         {

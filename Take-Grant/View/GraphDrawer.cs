@@ -92,7 +92,7 @@ namespace TakeGrant
 
             if (item != null)
             {
-                var viewItem = new ItemView(e.X, e.Y, item.Rights, item.ShortName);
+                var viewItem = new ItemView(e.X, e.Y, item);
                 items[item.id] = viewItem;
             }
 
