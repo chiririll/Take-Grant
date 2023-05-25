@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 using TakeGrant.Model;
 
 namespace TakeGrant.View
@@ -9,7 +11,7 @@ namespace TakeGrant.View
         private readonly Pen pen = Pens.Black;
         
         private Point pos;
-        private int radius = 25;
+        private int radius = 12;
         
         public ItemView(int x, int y, IReadOnlyDictionary<int, Rights.Type> rights, string name) : this(new Point(x, y), rights, name) { }
 
@@ -24,32 +26,36 @@ namespace TakeGrant.View
         public int X => pos.X;
         public int Y => pos.Y;
 
+        public bool IsObject => Rights.Count == 0;
+
         public string Name { get; private set; }
         public IReadOnlyDictionary<int, Rights.Type> Rights { get; private set; }
 
         public Point GetEdgePosition(Point src)
         {
-            return new Point(X + radius / 2, Y + radius / 2);
-            // TODO
-            throw new System.NotImplementedException();
-        }
-
-        public bool CheckClick(Point click)
-        {
-            return X - radius < click.X && click.X < X + radius &&
-                Y - radius < click.Y && click.Y < Y + radius;
+            var vx = src.X - pos.X;
+            var vy = src.Y - pos.Y;
+            var d = Math.Sqrt(Math.Pow(vx, 2) + Math.Pow(vy, 2));
+            var k = radius / d;
+            
+            return new Point((int)(pos.X + vx * k), (int)(pos.Y + vy * k));
         }
 
         public void Draw(Graphics g)
         {
             var font = new Font(FontFamily.GenericSansSerif, 8);
-            
-            g.FillEllipse(Brushes.White, X, Y, radius, radius);
-            g.DrawEllipse(pen, X, Y, radius, radius);
 
-            g.DrawString(Name, font, Brushes.Black, pos.X + 2, pos.Y + 6);
+            var d = 2 * radius;
+            var brush = IsObject ? Brushes.Black : Brushes.White;
 
-            // TODO: Draw text
+            g.FillEllipse(brush, X - radius, Y - radius, d, d);
+            g.DrawEllipse(pen, X - radius, Y - radius, d, d);
+
+            TextRenderer.DrawText(
+                g, Name, font,
+                new Rectangle(X - radius, Y - radius, d, d),
+                IsObject ? Color.White : Color.Black,
+                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using TakeGrant.Model;
 using TakeGrant.View;
@@ -16,7 +17,9 @@ namespace TakeGrant
         private readonly Label messageLabel;
 
         private Queue<Item> itemsToCreate;
-        
+
+        private Pen arrowsPen;
+
         public GraphDrawer(PictureBox canvas, Label messageLabel) 
         { 
             items = new Dictionary<int, ItemView>();
@@ -26,12 +29,24 @@ namespace TakeGrant
 
             canvas.MouseUp += ClickCallback;
             canvas.Paint += Draw;
+
+            CreatePen();
         }
 
         ~GraphDrawer()
         {
             canvas.MouseUp -= ClickCallback;
             canvas.Paint -= Draw;
+        }
+
+        private void CreatePen()
+        {
+            arrowsPen = new Pen(Color.Black);
+            var capPath = new GraphicsPath();
+            capPath.AddLine(-0, 0, -5, -5);
+            capPath.AddLine(0, 0, 5, -5);
+            arrowsPen.CustomEndCap = new CustomLineCap(null, capPath);
+
         }
 
         public void Init(IEnumerable<Item> modelItems)
@@ -101,9 +116,8 @@ namespace TakeGrant
 
         private void DrawArrow(Graphics g, Point src, Point dst, string rights)
         {
-            g.DrawLine(Pens.Black, src, dst);
-            g.FillEllipse(Brushes.Yellow, dst.X, dst.Y, 10, 10);
-
+            g.DrawLine(arrowsPen, src, dst);
+            
             var midX = (src.X + dst.X) / 2;
             var midY = (src.Y + dst.Y) / 2;
 
