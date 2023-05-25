@@ -29,11 +29,11 @@ namespace TakeGrant.Model
             objects.Clear();
 
             int i = 0;
-            for (; i < subjCount; i++) 
+            for (; i < subjCount; i++)
             {
                 subjects.Add(new Item(i, false));
             }
-            
+
             for (; i < subjCount + objCount; i++)
             {
                 objects.Add(new Item(i, true));
@@ -70,14 +70,14 @@ namespace TakeGrant.Model
 
             foreach (var item in subjects)
             {
-                foreach(var subj in subjects)
+                foreach (var subj in subjects)
                 {
                     if (subj.id == item.id) continue;
 
 
                     item.EditRights(subj.id, Rights.Randomize(rand, true, subjects.Count));
                 }
-                
+
                 foreach (var obj in objects)
                 {
                     item.EditRights(obj.id, Rights.Randomize(rand, false, objects.Count));

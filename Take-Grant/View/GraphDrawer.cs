@@ -20,8 +20,8 @@ namespace TakeGrant
 
         private Pen arrowsPen;
 
-        public GraphDrawer(PictureBox canvas, Label messageLabel) 
-        { 
+        public GraphDrawer(PictureBox canvas, Label messageLabel)
+        {
             items = new Dictionary<int, ItemView>();
 
             this.canvas = canvas;
@@ -53,7 +53,7 @@ namespace TakeGrant
         {
             this.items.Clear();
             this.itemsToCreate = new Queue<Item>(modelItems);
-            
+
             RequestItemPosition();
         }
 
@@ -64,9 +64,9 @@ namespace TakeGrant
                 foreach (var right in item.Rights)
                 {
                     if (items.TryGetValue(right.Key, out var srcItem))
-                        DrawArrow(e.Graphics, 
-                            item.GetEdgePosition(srcItem.Pos), 
-                            srcItem.GetEdgePosition(item.Pos), 
+                        DrawArrow(e.Graphics,
+                            item.GetEdgePosition(srcItem.Pos),
+                            srcItem.GetEdgePosition(item.Pos),
                             Rights.ToString(right.Value));
                 }
             }
@@ -102,7 +102,7 @@ namespace TakeGrant
         private void RequestItemPosition()
         {
             canvas.Invalidate();
-            
+
             if (itemsToCreate.Count <= 0)
             {
                 messageLabel.Text = "";
@@ -116,7 +116,7 @@ namespace TakeGrant
         private void DrawArrow(Graphics g, Point src, Point dst, string rights)
         {
             g.DrawLine(arrowsPen, src, dst);
-            
+
             var midX = (src.X + dst.X) / 2;
             var midY = (src.Y + dst.Y) / 2;
 

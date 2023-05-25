@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using TakeGrant.Model;
 
@@ -44,7 +43,7 @@ namespace TakeGrant.View
             {
                 grid.Columns.Add(item.ShortName, item.ShortName);
                 grid.Rows.Add();
-                
+
                 grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
                 grid.Rows[i].HeaderCell.Value = item.ShortName;
 
@@ -53,7 +52,7 @@ namespace TakeGrant.View
 
                 i++;
             }
-            
+
             foreach (var item in model.Objects)
             {
                 grid.Columns.Add(item.ShortName, item.ShortName);

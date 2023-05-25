@@ -15,7 +15,7 @@ namespace TakeGrant.Model
             IsObject = isObject;
         }
 
-        public IReadOnlyDictionary<int,  Rights.Type> AccessRights => rights;
+        public IReadOnlyDictionary<int, Rights.Type> AccessRights => rights;
 
         public string ShortName => (IsObject ? "O" : "S") + id.ToString();
         public bool IsObject { get; }
@@ -28,7 +28,5 @@ namespace TakeGrant.Model
         }
 
         public void ClearRights() => rights.Clear();
-
-        public override string ToString() => ShortName;
     }
 }

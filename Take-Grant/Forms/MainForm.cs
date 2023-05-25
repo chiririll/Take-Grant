@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using TakeGrant.Model;
 using TakeGrant.View;
 
@@ -35,7 +34,7 @@ namespace TakeGrant
         private void CreateMatrix(object sender, System.EventArgs e)
         {
             model.CreateMatrix((int)subjCount.Value, (int)objCount.Value);
-            
+
             drawer.Init(model.Items);
             matrix.UpdateGrid();
 
@@ -46,7 +45,7 @@ namespace TakeGrant
         private void ClearRights(object sender, System.EventArgs e)
         {
             model.ClearRights();
-            
+
             graphPictureBox.Invalidate();
             matrix.UpdateGrid();
         }

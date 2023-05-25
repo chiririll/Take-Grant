@@ -44,12 +44,12 @@ namespace TakeGrant.Model
         public static string ToString(Type rights)
         {
             var str = new StringBuilder(4);
-            
+
             if ((rights & Type.Read) != 0) str.Append('r');
             if ((rights & Type.Write) != 0) str.Append('w');
             if ((rights & Type.Take) != 0) str.Append('t');
             if ((rights & Type.Grant) != 0) str.Append('g');
-            
+
             return str.ToString();
         }
 

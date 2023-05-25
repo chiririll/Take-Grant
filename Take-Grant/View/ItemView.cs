@@ -9,7 +9,7 @@ namespace TakeGrant.View
     public class ItemView
     {
         private readonly Pen pen = Pens.Black;
-        
+
         private Point pos;
         private int radius = 12;
 
@@ -17,8 +17,8 @@ namespace TakeGrant.View
 
         public ItemView(int x, int y, Item item) : this(new Point(x, y), item) { }
 
-        public ItemView(Point position, Item item) 
-        { 
+        public ItemView(Point position, Item item)
+        {
             this.pos = position;
             this.item = item;
         }
@@ -37,7 +37,7 @@ namespace TakeGrant.View
             var vy = src.Y - pos.Y;
             var d = Math.Sqrt(Math.Pow(vx, 2) + Math.Pow(vy, 2));
             var k = radius / d;
-            
+
             return new Point((int)(pos.X + vx * k), (int)(pos.Y + vy * k));
         }
 
