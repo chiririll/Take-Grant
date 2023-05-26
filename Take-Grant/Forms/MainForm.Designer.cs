@@ -35,22 +35,34 @@
             this.rootTabs = new System.Windows.Forms.TabControl();
             this.settingsTab = new System.Windows.Forms.TabPage();
             this.editMatrixPanel = new System.Windows.Forms.Panel();
+            this.objCount = new System.Windows.Forms.NumericUpDown();
+            this.objectsCountLabel = new System.Windows.Forms.Label();
             this.subjectsCountLabel = new System.Windows.Forms.Label();
             this.genRightsBtn = new System.Windows.Forms.Button();
             this.createMatrixBtn = new System.Windows.Forms.Button();
             this.clearRightsBtn = new System.Windows.Forms.Button();
             this.subjCount = new System.Windows.Forms.NumericUpDown();
             this.matrixTab = new System.Windows.Forms.TabPage();
-            this.objectsCountLabel = new System.Windows.Forms.Label();
-            this.objCount = new System.Windows.Forms.NumericUpDown();
+            this.takeGrantTab = new System.Windows.Forms.TabPage();
+            this.takeFromDropdown = new System.Windows.Forms.ComboBox();
+            this.GiveToDropdown = new System.Windows.Forms.ComboBox();
+            this.targetObjDropdown = new System.Windows.Forms.ComboBox();
+            this.takeGrantPictureBox = new System.Windows.Forms.PictureBox();
+            this.takeBtn = new System.Windows.Forms.Button();
+            this.grantBtn = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.accessMatrix)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.graphPictureBox)).BeginInit();
             this.rootTabs.SuspendLayout();
             this.settingsTab.SuspendLayout();
             this.editMatrixPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.objCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjCount)).BeginInit();
             this.matrixTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.objCount)).BeginInit();
+            this.takeGrantTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.takeGrantPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // accessMatrix
@@ -108,6 +120,7 @@
             // 
             this.rootTabs.Controls.Add(this.settingsTab);
             this.rootTabs.Controls.Add(this.matrixTab);
+            this.rootTabs.Controls.Add(this.takeGrantTab);
             this.rootTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rootTabs.Location = new System.Drawing.Point(0, 0);
             this.rootTabs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -144,6 +157,22 @@
             this.editMatrixPanel.Name = "editMatrixPanel";
             this.editMatrixPanel.Size = new System.Drawing.Size(557, 121);
             this.editMatrixPanel.TabIndex = 8;
+            // 
+            // objCount
+            // 
+            this.objCount.Location = new System.Drawing.Point(4, 80);
+            this.objCount.Name = "objCount";
+            this.objCount.Size = new System.Drawing.Size(272, 26);
+            this.objCount.TabIndex = 6;
+            // 
+            // objectsCountLabel
+            // 
+            this.objectsCountLabel.AutoSize = true;
+            this.objectsCountLabel.Location = new System.Drawing.Point(4, 56);
+            this.objectsCountLabel.Name = "objectsCountLabel";
+            this.objectsCountLabel.Size = new System.Drawing.Size(177, 20);
+            this.objectsCountLabel.TabIndex = 5;
+            this.objectsCountLabel.Text = "Количество объектов";
             // 
             // subjectsCountLabel
             // 
@@ -203,21 +232,101 @@
             this.matrixTab.Text = "Матрица доступа";
             this.matrixTab.UseVisualStyleBackColor = true;
             // 
-            // objectsCountLabel
+            // takeGrantTab
             // 
-            this.objectsCountLabel.AutoSize = true;
-            this.objectsCountLabel.Location = new System.Drawing.Point(4, 56);
-            this.objectsCountLabel.Name = "objectsCountLabel";
-            this.objectsCountLabel.Size = new System.Drawing.Size(177, 20);
-            this.objectsCountLabel.TabIndex = 5;
-            this.objectsCountLabel.Text = "Количество объектов";
+            this.takeGrantTab.Controls.Add(this.label3);
+            this.takeGrantTab.Controls.Add(this.label2);
+            this.takeGrantTab.Controls.Add(this.label1);
+            this.takeGrantTab.Controls.Add(this.grantBtn);
+            this.takeGrantTab.Controls.Add(this.takeBtn);
+            this.takeGrantTab.Controls.Add(this.takeGrantPictureBox);
+            this.takeGrantTab.Controls.Add(this.targetObjDropdown);
+            this.takeGrantTab.Controls.Add(this.GiveToDropdown);
+            this.takeGrantTab.Controls.Add(this.takeFromDropdown);
+            this.takeGrantTab.Location = new System.Drawing.Point(4, 29);
+            this.takeGrantTab.Name = "takeGrantTab";
+            this.takeGrantTab.Size = new System.Drawing.Size(1339, 835);
+            this.takeGrantTab.TabIndex = 2;
+            this.takeGrantTab.Text = "D";
+            this.takeGrantTab.UseVisualStyleBackColor = true;
             // 
-            // objCount
+            // takeFromDropdown
             // 
-            this.objCount.Location = new System.Drawing.Point(4, 80);
-            this.objCount.Name = "objCount";
-            this.objCount.Size = new System.Drawing.Size(272, 26);
-            this.objCount.TabIndex = 6;
+            this.takeFromDropdown.FormattingEnabled = true;
+            this.takeFromDropdown.Location = new System.Drawing.Point(32, 50);
+            this.takeFromDropdown.Name = "takeFromDropdown";
+            this.takeFromDropdown.Size = new System.Drawing.Size(121, 28);
+            this.takeFromDropdown.TabIndex = 0;
+            // 
+            // GiveToDropdown
+            // 
+            this.GiveToDropdown.FormattingEnabled = true;
+            this.GiveToDropdown.Location = new System.Drawing.Point(159, 50);
+            this.GiveToDropdown.Name = "GiveToDropdown";
+            this.GiveToDropdown.Size = new System.Drawing.Size(121, 28);
+            this.GiveToDropdown.TabIndex = 1;
+            // 
+            // targetObjDropdown
+            // 
+            this.targetObjDropdown.FormattingEnabled = true;
+            this.targetObjDropdown.Location = new System.Drawing.Point(286, 50);
+            this.targetObjDropdown.Name = "targetObjDropdown";
+            this.targetObjDropdown.Size = new System.Drawing.Size(121, 28);
+            this.targetObjDropdown.TabIndex = 2;
+            // 
+            // takeGrantPictureBox
+            // 
+            this.takeGrantPictureBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.takeGrantPictureBox.Location = new System.Drawing.Point(0, 111);
+            this.takeGrantPictureBox.Name = "takeGrantPictureBox";
+            this.takeGrantPictureBox.Size = new System.Drawing.Size(1339, 724);
+            this.takeGrantPictureBox.TabIndex = 3;
+            this.takeGrantPictureBox.TabStop = false;
+            // 
+            // takeBtn
+            // 
+            this.takeBtn.Location = new System.Drawing.Point(440, 37);
+            this.takeBtn.Name = "takeBtn";
+            this.takeBtn.Size = new System.Drawing.Size(159, 41);
+            this.takeBtn.TabIndex = 4;
+            this.takeBtn.Text = "Take";
+            this.takeBtn.UseVisualStyleBackColor = true;
+            // 
+            // grantBtn
+            // 
+            this.grantBtn.Location = new System.Drawing.Point(605, 37);
+            this.grantBtn.Name = "grantBtn";
+            this.grantBtn.Size = new System.Drawing.Size(159, 42);
+            this.grantBtn.TabIndex = 5;
+            this.grantBtn.Text = "Grant";
+            this.grantBtn.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(32, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(20, 20);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "S";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(159, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(20, 20);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "X";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(286, 24);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(20, 20);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Y";
             // 
             // MainForm
             // 
@@ -238,9 +347,12 @@
             this.settingsTab.PerformLayout();
             this.editMatrixPanel.ResumeLayout(false);
             this.editMatrixPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.objCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjCount)).EndInit();
             this.matrixTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.objCount)).EndInit();
+            this.takeGrantTab.ResumeLayout(false);
+            this.takeGrantTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.takeGrantPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -261,6 +373,16 @@
         private System.Windows.Forms.NumericUpDown subjCount;
         private System.Windows.Forms.NumericUpDown objCount;
         private System.Windows.Forms.Label objectsCountLabel;
+        private System.Windows.Forms.TabPage takeGrantTab;
+        private System.Windows.Forms.PictureBox takeGrantPictureBox;
+        private System.Windows.Forms.ComboBox targetObjDropdown;
+        private System.Windows.Forms.ComboBox GiveToDropdown;
+        private System.Windows.Forms.ComboBox takeFromDropdown;
+        private System.Windows.Forms.Button grantBtn;
+        private System.Windows.Forms.Button takeBtn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
 

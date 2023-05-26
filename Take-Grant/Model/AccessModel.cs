@@ -72,15 +72,15 @@ namespace TakeGrant.Model
             {
                 foreach (var subj in subjects)
                 {
-                    if (subj.id == item.id) continue;
+                    if (subj.Id == item.Id) continue;
 
 
-                    item.EditRights(subj.id, Rights.Randomize(rand, true, subjects.Count));
+                    item.EditRights(subj.Id, Rights.Randomize(rand, true, subjects.Count));
                 }
 
                 foreach (var obj in objects)
                 {
-                    item.EditRights(obj.id, Rights.Randomize(rand, false, objects.Count));
+                    item.EditRights(obj.Id, Rights.Randomize(rand, false, objects.Count));
                 }
             }
         }

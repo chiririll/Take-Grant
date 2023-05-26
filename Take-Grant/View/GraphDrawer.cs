@@ -86,14 +86,14 @@ namespace TakeGrant
             while (itemsToCreate.Count > 0)
             {
                 item = itemsToCreate.Dequeue();
-                if (!items.ContainsKey(item.id)) break;
+                if (!items.ContainsKey(item.Id)) break;
                 item = null;
             }
 
             if (item != null)
             {
                 var viewItem = new ItemView(e.X, e.Y, item);
-                items[item.id] = viewItem;
+                items[item.Id] = viewItem;
             }
 
             RequestItemPosition();

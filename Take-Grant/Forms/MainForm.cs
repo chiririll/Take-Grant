@@ -10,6 +10,7 @@ namespace TakeGrant
 
         private GraphDrawer drawer;
         private AccessMatrixView matrix;
+        private TakeGrantView takeGrant;
 
         public MainForm()
         {
@@ -27,8 +28,16 @@ namespace TakeGrant
         {
             this.drawer = new GraphDrawer(graphPictureBox, graphLabel);
             this.matrix = new AccessMatrixView(accessMatrix);
+            this.takeGrant = new TakeGrantView(
+                takeGrantPictureBox,
+                takeBtn,
+                grantBtn,
+                takeFromDropdown,
+                GiveToDropdown,
+                targetObjDropdown);
 
             matrix.Init(model);
+            takeGrant.Init(model);
         }
 
         private void CreateMatrix(object sender, System.EventArgs e)
@@ -37,6 +46,7 @@ namespace TakeGrant
 
             drawer.Init(model.Items);
             matrix.UpdateGrid();
+            takeGrant.UpdateItems();
 
             graphPictureBox.Invalidate();
             accessMatrix.Invalidate();

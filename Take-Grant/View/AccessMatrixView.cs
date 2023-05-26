@@ -81,7 +81,7 @@ namespace TakeGrant.View
             var srcItem = model.Items[e.RowIndex];
             var dstItem = model.Items[e.ColumnIndex];
 
-            srcItem.EditRights(dstItem.id, rights);
+            srcItem.EditRights(dstItem.Id, rights);
             grid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = Rights.ToString(rights);
 
             ignoreEvent = true;

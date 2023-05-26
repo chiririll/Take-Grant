@@ -23,9 +23,11 @@ namespace TakeGrant.View
             this.item = item;
         }
 
+        public int Id => item.Id;
         public Point Pos => pos;
         public int X => pos.X;
         public int Y => pos.Y;
+        public int Radius => radius;
 
         public bool IsObject => item.IsObject;
 
