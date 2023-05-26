@@ -247,7 +247,7 @@
             this.takeGrantTab.Name = "takeGrantTab";
             this.takeGrantTab.Size = new System.Drawing.Size(1339, 835);
             this.takeGrantTab.TabIndex = 2;
-            this.takeGrantTab.Text = "D";
+            this.takeGrantTab.Text = "Take-Grant";
             this.takeGrantTab.UseVisualStyleBackColor = true;
             // 
             // takeFromDropdown
